@@ -1,18 +1,21 @@
 FROM ubuntu:20.04
 
-RUN apt update && apt install openssh-server sudo iproute2 inetutils-ping vim
+RUN apt update && \
+    apt install -y openssh-server sudo iproute2 inetutils-ping vim
 
-RUN groupadd test && useradd -rm -d /home/test -s /bin/bash -g test -G sudo -u 1000 test && usermod -aG sudo test
+RUN groupadd test && useradd -rm -d /home/test -s /bin/bash -g test -G sudo -u 1000 test && \
+    usermod -aG sudo test
 
-COPY sshd_config /etc/ssh/sshd_config
+COPY ssh/sshd_config /etc/ssh/sshd_config
 
 # ssh with key
 
 RUN mkdir /home/test/.ssh
 
-COPY id_rsa.pub /home/test/.ssh/authorized_keys
+COPY ssh/keys/id_docker_rsa.pub /home/test/.ssh/authorized_keys
 
-RUN chmod 600 /home/test/.ssh/authorized_keys && chown test:test /home/test/.ssh/authorized_keys
+RUN chmod 600 /home/test/.ssh/authorized_keys && \
+    chown test:test /home/test/.ssh/authorized_keys
 
 RUN service ssh start
 

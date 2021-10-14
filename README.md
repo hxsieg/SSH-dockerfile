@@ -1,17 +1,17 @@
-# Docker ausfuehren
+# Docker deploy
 ```
 docker build -t my-ubu .
 
 docker run -dp 2022:22 --name ubu my-ubu
 
-ssh -i id_rsa -p 2022 test@0.0.0.0
+ssh -i ssh/keys/id_docker_rsa -p 2022 test@0.0.0.0
 ```
-# Sicherheit
-1. Ggf. fuer mehr Sicherheit einen eigenen id_rsa[.pub] mit ```ssh-keygen``` erzeugen und in der sshd_config
-```PasswordAuthentication no```
-# Sonstiges
-1. Port 2022 muss bei mehreren Maschinen individuel sein
-2. Um die nervige Nachfrage abzuschalten muss die locale ~/.ssh/config diesen Schalter haben:
+# Security
+1. Create your own key `id_docker_rsa[.pub]` with ```ssh-keygen``` and add to sshd_config
+```PasswordAuthentication no```. But be careful that `id_docker_rsa` have mode 600!
+# Other
+1. The port 202x must be uniqe for all container
+2. To switch of the annoying confirmation must the local `~/.ssh/config` add an entry like this
 ```
 # for all hosts
 Host *
