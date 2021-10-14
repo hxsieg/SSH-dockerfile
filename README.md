@@ -13,8 +13,8 @@ ssh -i ssh/keys/id_docker_rsa -p 2022 test@0.0.0.0
 1. The port 202x must be uniqe for all container
 2. To switch of the annoying confirmation must the local `~/.ssh/config` add an entry like this
 ```
-# for all hosts
-Host *
+# for all local hosts
+Host *0.0.0.0*
     StrictHostKeyChecking no
 
 ```
